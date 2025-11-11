@@ -1,8 +1,18 @@
 #!/usr/bin/python3
+"""
+HBnBFacade class initializes and maintains references to the various services
+and repositories required by the application
+"""
 from app.persistence.repository import InMemoryRepository
+
 
 class HBnBFacade:
     def __init__(self):
+        self.user_service = UserService()
+        self.place_service = PlaceService()
+        self.review_service = ReviewService()
+        self.amenity_service = AmenityService()
+
         self.user_repo = InMemoryRepository()
         self.place_repo = InMemoryRepository()
         self.review_repo = InMemoryRepository()
@@ -10,10 +20,14 @@ class HBnBFacade:
 
     # Placeholder method for creating a user
     def create_user(self, user_data):
-        # Logic will be implemented in later tasks
-        pass
+        user = User(**user_data)
+        self.user_repository.add(user)
+        return user
+
 
     # Placeholder method for fetching a place by ID
     def get_place(self, place_id):
-        # Logic will be implemented in later tasks
-        pass
+        place = self.place_repository.get(place_id)
+        if place:
+            place.reviews = self.review_repository.get_by_attribute('place_id', place_id)
+        return place

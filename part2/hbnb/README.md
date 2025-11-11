@@ -1,0 +1,61 @@
+## Project directory structure ##
+
+The project setup will comprise of the **Presentation**(API Endpoints, Services, Request Handlers), **Business Logic**(User Model, Place Model, Review Model, Amenity Model), and **Persistence**(Database Access, Repository) layers with the necessary folders, packages, and files.
+
+
+hbnb/
+├── app/
+│   ├── __init__.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── v1/
+│   │       ├── __init__.py
+│   │       ├── users.py
+│   │       ├── places.py
+│   │       ├── reviews.py
+│   │       ├── amenities.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── user.py
+│   │   ├── place.py
+│   │   ├── review.py
+│   │   ├── amenity.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── facade.py
+│   ├── persistence/
+│       ├── __init__.py
+│       ├── repository.py
+├── run.py
+├── config.py
+├── requirements.txt
+├── README.md
+
+Explanation:
+
+1. The app/ directory contains the core application code.
+2. The api/ subdirectory houses the API endpoints, organized by version (v1/).
+3. The models/ subdirectory contains the business logic classes (e.g., user.py, place.py).
+4. The services/ subdirectory is where the Facade pattern is implemented, managing the interaction between layers.
+5. The persistence/ subdirectory is where the in-memory repository is implemented. This will later be replaced by a database-backed solution using SQL Alchemy.
+6. run.py is the entry point for running the Flask application.
+7. config.py will be used for configuring environment variables and application settings.
+8. requirements.txt will list all the Python packages needed for the project.
+
+The **in-memory repository** (hbnb/app/persistence/repository.py) handle object storage and validation. It follows a consistent interface that will later be replaced by a 
+database-backed repository.
+
+The **Facade Pattern** (hbnb/app/services/facade.py) handle communication between the 
+Presentation, Business Logic, and Persistence layers.
+
+In the requirements.txt file, the Python packages needed for the project:
+flask
+flask-restx
+
+Install the dependencies using:
+pip install -r requirements.txt
+
+Run the application using:
+python run.py
+
+## Core Business Logic Classes ##
