@@ -13,12 +13,14 @@ class Review(BaseModel):
         place_id (str): The ID of the place being reviewed
         user_id (str): The ID of the user who wrote the review
         text (str): The content of the review
+        rating (int): The rating of the place
         place (Place): The Place object being reviewed
         user (User): The User object who wrote the review
     """
     place_id = ""
     user_id = ""
     text = ""
+    rating = 0
     place = None
     user = None
 
