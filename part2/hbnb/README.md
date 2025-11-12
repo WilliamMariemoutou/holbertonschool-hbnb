@@ -69,12 +69,12 @@ relationships. The implemented classes support the necessary validation, relatio
 for the application’s core functionality. Additionally, the relationships between entities are fully operational, allowing 
 seamless interactions like linking reviews to places or associating amenities with places.
 
-# Activate the environment: #
+### Activate the environment: ###
 To run the test files (e.g. test_user.py, test_place.py, test_amenity.py, test_review.py )in an `venv` module, use:
 ```
 source venv/bin/activate
 ```
-# Deactivate the environment: #
+### Deactivate the environment: ###
 When you're finished, you can exit the environment with the command:
 ```
 deactivate
