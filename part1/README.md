@@ -1,5 +1,7 @@
 # HBnB - UML #
 
+A complete set of technical documentation that provides a clear and detailed blueprint for the HBnB Evolution application. This documentation will not only guide you through the implementation phases but also ensure that you have a solid understanding of the application’s design and architecture.
+
 ## Example of a generic package diagram using Mermaid.js: ##
 
 ```
