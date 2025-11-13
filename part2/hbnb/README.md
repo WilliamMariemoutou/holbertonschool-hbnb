@@ -1,5 +1,6 @@
 # Part 2: Implementation of Business Logic and API Endpoints #
 
+**0. Project Setup and Package Initialization**
 ## Project directory structure ##
 
 The project setup will comprise of the **Presentation**(API Endpoints, Services, Request Handlers), **Business Logic**(User Model, Place Model, Review Model, Amenity Model), and **Persistence**(Database Access, Repository) layers with the necessary folders, packages, and files.
@@ -25,6 +26,10 @@ hbnb/
 │   ├── services/
 │   │   ├── __init__.py
 │   │   ├── facade.py
+│   │   ├── amenity_service.py
+│   │   ├── place_service.py
+│   │   ├── review_service.py
+│   │   ├── user_service.py
 │   ├── persistence/
 │       ├── __init__.py
 │       ├── repository.py
@@ -65,6 +70,7 @@ Run the application using:
 python run.py
 ```
 
+**1. Core Business Logic Classes**
 ## Core Business Logic Classes ##
 A fully implemented core business logic classes (User, Place, Review, Amenity) with the appropriate attributes, methods, and 
 relationships. The implemented classes support the necessary validation, relationships, and data integrity checks required 
@@ -81,3 +87,24 @@ When you're finished, you can exit the environment with the command:
 ```
 deactivate
 ```
+
+**2. User Endpoints**
+## Implement the User Endpoints ##
+The API endpoints needed for managing users in the HBnB application. The implementation of the core user management endpoints, including the ability to create, read, and update users. The DELETE operation will not be implemented for users in this part.
+
+### `POST /api/v1/users/`: Registers a new user and performs a check for email uniqueness ###
+
+**Explanation:**
+
+- The POST endpoint registers a new user and performs a check for email uniqueness.
+- If the email is already registered, the API returns a 400 status code with an error message.
+- If input data is missing or invalid, a 400 status code is returned with a relevant error message by the framework thanks to the validate=True parameter.
+- The Facade handles all interactions between layers.
+
+### `GET /api/v1/users/<user_id>`: Retrieves user details by ID ###
+
+**Explanation:**
+
+- The GET endpoint retrieves user details by ID.
+- If the user does not exist, the API returns a 404 status code with an error message.
+
