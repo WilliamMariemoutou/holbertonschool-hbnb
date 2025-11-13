@@ -7,6 +7,7 @@ The project setup will comprise of the **Presentation**(API Endpoints, Services,
 
 ```
 hbnb/
+├── venv/
 ├── app/
 │   ├── __init__.py
 │   ├── api/
@@ -37,6 +38,10 @@ hbnb/
 ├── config.py
 ├── requirements.txt
 ├── README.md
+├── test_amenity.py
+├── test_place.py
+├── test_review.py
+├── test_user.py
 ```
 
 Explanation:
