@@ -51,3 +51,9 @@ class InMemoryRepository(Repository):
 
     def get_by_attribute(self, attr_name, attr_value):
         return next((obj for obj in self._storage.values() if getattr(obj, attr_name) == attr_value), None)
+
+    def save(self, entity):
+        if entity.id in self._storage:
+            self._storage[entity.id] = entity
+        else:
+            self.add(entity)
