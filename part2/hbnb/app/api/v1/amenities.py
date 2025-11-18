@@ -33,9 +33,6 @@ class AmenityList(Resource):
         if not name or not isinstance(name, str) or len(name.strip()) == 0:
             api.abort(400, "Amenity name cannot be empty or invalid.")
         
-        if facade.get_amenity_by_name(name): # Assuming facade has this method
-            api.abort(409, f"Amenity with name '{name}' already exists.")
-        
         try:
             new_amenity = facade.create_amenity(data)
             return new_amenity, 201
@@ -89,7 +86,7 @@ class AmenityResource(Resource):
         existing_amenity_with_same_name = facade.get_amenity_by_name(name)
         if existing_amenity_with_same_name and existing_amenity_with_same_name['id'] != amenity_id:
             api.abort(409, f"Another amenity with name '{name}' already exists.")
-        
+            
         try:
             updated_amenity = facade.update_amenity(amenity_id, data)
             if not updated_amenity:

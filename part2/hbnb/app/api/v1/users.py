@@ -12,6 +12,7 @@ from app.services import facade
 api = Namespace('users', description='User operations')
 
 email_regex = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+UUID_REGEX = re.compile(r'^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$')
 
 # Define the user model for input validation and documentation
 user_input_model = api.model('User', {
@@ -75,7 +76,7 @@ class UserList(Resource):
         new_user_dict = facade.create_user(user_data)
         return new_user_dict, 201
 
-@api.route('/<user_id>')
+@api.route('/<string:user_id>')
 @api.param('user_id', 'The user identifier')
 class UserResource(Resource):
     @api.doc('get_user_details')
@@ -86,13 +87,13 @@ class UserResource(Resource):
         """
         Get user details by ID
         """
-        if not user_id or not isinstance(user_id, str) or len(user_id.strip()) == 0:
-            api.abort(400, "Invalid user ID provided.")
+        if not UUID_REGEX.match(user_id):
+            api.abort(400, "Invalid user ID format. Must be a UUID.")
 
-        user_dict = facade.get_user(user_id)
-        if not user_dict:
-            return {'error': 'User not found'}, 404
-        return user_dict, 200
+        user = facade.get_user(user_id)
+        if not user:
+            api.abort(404, f"User with ID '{user_id}' not found")
+        return user
 
     @api.doc('update_user')
     @api.expect(user_input_model)

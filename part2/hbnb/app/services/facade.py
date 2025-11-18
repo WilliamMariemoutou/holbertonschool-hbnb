@@ -43,8 +43,13 @@ class HBnBFacade:
         """
         Retrieves a user by their id
         """
-        user = self.user_repo.get(user_id)
-        return user.to_dict() if user else None
+        try:
+            UUID(user_id)
+        except ValueError:
+            return None
+
+        return self.user_repo.get(user_id)
+
 
     def get_all_users(self):
         """
@@ -163,6 +168,7 @@ class HBnBFacade:
         amenity.name = name.strip()
         self.amenity_repo.save(amenity)
         return amenity
+    
 
     def create_place(self, place_data):
         """
@@ -184,7 +190,10 @@ class HBnBFacade:
             raise ValueError("Longitude must be between -180 and 180.")
 
         new_place = Place(**place_data)
-        self.place_repo.add(new_user)
+        self.place_repo.add(new_place)
+        owner_user = self.user_repo.get(place_data['user_id'])
+        new_place.owner = owner_user
+
         return new_place
 
     def get_place(self, place_id):

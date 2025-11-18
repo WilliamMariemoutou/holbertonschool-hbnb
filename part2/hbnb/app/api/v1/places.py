@@ -20,7 +20,6 @@ place_input_model = api.model('PlaceInput', {
     'name': fields.String(required=True, description='Name of the place', min_length=1),
     'description': fields.String(required=True, description='Description of the place', min_length=1),
     'address': fields.String(required=True, description='Address of the place', min_length=1),
-    'city_id': fields.String(required=True, description='City ID', pattern=UUID_REGEX.pattern),
     'latitude': fields.Float(required=True, description='Latitude of the place', min=-90.0, max=90.0),
     'longitude': fields.Float(required=True, description='Longitude of the place', min=-180.0, max=180.0),
     'user_id': fields.String(required=True, description='The owner\'s user ID', pattern=UUID_REGEX.pattern),
@@ -62,12 +61,9 @@ class PlaceList(Resource):
         if not facade.get_user(place_data['user_id']):
             api.abort(404, f"User with ID '{place_data['user_id']}' not found. Cannot create place.")
         
-        if not facade.get_city(place_data['city_id']): # Assuming a facade.get_city method
-            api.abort(404, f"City with ID '{place_data['city_id']}' not found. Cannot create place.")
-        
         if place_data.get('amenity_ids'):
             for amenity_id in place_data['amenity_ids']:
-                if not facade.get_amenity(amenity_id): # Assuming a facade.get_amenity method
+                if not facade.get_amenity(amenity_id):
                     api.abort(404, f"Amenity with ID '{amenity_id}' not found. Cannot create place.")
         
         try:
@@ -113,15 +109,6 @@ class PlaceResource(Resource):
         if 'user_id' in update_data and not facade.get_user(update_data['user_id']):
             api.abort(404, f"User with ID '{update_data['user_id']}' not found. Cannot update place.")
         
-        if 'city_id' in update_data and not facade.get_city(update_data['city_id']): # Assuming a facade.get_city method
-            api.abort(404, f"City with ID '{update_data['city_id']}' not found. Cannot update place.")
-        
-        if 'amenity_ids' in update_data and update_data['amenity_ids'] is not None: # Ensure it's not explicitly null
-            for amenity_id in update_data['amenity_ids']:
-                if not UUID_REGEX.match(amenity_id): # Validate individual amenity ID format
-                    api.abort(400, f"Invalid amenity ID format: '{amenity_id}'. Must be a UUID.")
-                if not facade.get_amenity(amenity_id): # Assuming a facade.get_amenity method
-                    api.abort(404, f"Amenity with ID '{amenity_id}' not found. Cannot update place.")
 
         try:
             updated_place = facade.update_place(place_id, update_data)
