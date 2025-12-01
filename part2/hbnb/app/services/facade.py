@@ -5,8 +5,6 @@ from app.models.user import User
 from app.models.amenity import Amenity
 from app.models.place import Place
 from app.models.review import Review
-from uuid import UUID
-from datetime import datetime
 
 class HBnBFacade:
     def __init__(self):
@@ -28,19 +26,14 @@ class HBnBFacade:
     # USER METHODS
 
     def create_user(self, user_data):
-        """
-        Creates a new user
-        """
-        # 1. Validate mandatory fields
+        """Creates a new user"""
         if not user_data.get('email') or not user_data.get('password'):
             raise ValueError("Email and password are required")
 
-        # 2. Check if email exists
         if self.user_repo.get_by_attribute('email', user_data['email']):
             raise ValueError("Email already registered")
         
         user = User(**user_data)
-
         self.user_repo.add(user)
         return user.to_dict()
 
@@ -49,13 +42,22 @@ class HBnBFacade:
 
     def get_user_by_email(self, email):
         return self.user_repo.get_by_attribute('email', email)
+    
+    def find_users_by_name(self, first_name):
+        """Searches users by first name (case-insensitive)"""
+        all_users = self.user_repo.get_all()
+        # Handle object or dict access depending on repo type
+        results = []
+        for user in all_users:
+            u_name = user.first_name if hasattr(user, 'first_name') else user.get('first_name')
+            if u_name and u_name.lower() == first_name.lower():
+                results.append(user.to_dict())
+        return results
 
     def get_all_users(self):
         return [user.to_dict() for user in self.user_repo.get_all()]
 
     def update_user(self, user_id, data):
-        """Updates user using the repository's update method."""
-        # Note: We rely on the repository to handle the commit
         updated_user = self.user_repo.update(user_id, data)
         return updated_user.to_dict() if updated_user else None
 
@@ -76,6 +78,10 @@ class HBnBFacade:
     def get_amenity(self, amenity_id):
         return self.amenity_repo.get(amenity_id)
 
+    def get_amenity_by_name(self, name):
+        """Retrieve amenity by name to check duplicates"""
+        return self.amenity_repo.get_by_attribute("name", name)
+
     def get_all_amenities(self):
         return self.amenity_repo.get_all()
 
@@ -85,15 +91,13 @@ class HBnBFacade:
     # PLACE METHODS
 
     def create_place(self, place_data):
-        # 1. Validate Owner
         user_id = place_data.get('user_id')
         if not user_id or not self.user_repo.get(user_id):
             raise ValueError(f"Owner with ID '{user_id}' not found.")
 
-        # 2. Validate Amenities
+        # Extract amenities before creating the Place object
         amenity_ids = place_data.pop('amenity_ids', [])
         
-        # 3. Numeric Validation
         try:
             place_data['price'] = float(place_data['price'])
             place_data['latitude'] = float(place_data.get('latitude', 0.0))
@@ -103,7 +107,7 @@ class HBnBFacade:
 
         new_place = Place(**place_data)
         
-        # 4. Handle Many-to-Many Relationship for Amenities
+        # Link Amenities
         if amenity_ids:
             for am_id in amenity_ids:
                 amenity = self.amenity_repo.get(am_id)
@@ -121,28 +125,36 @@ class HBnBFacade:
 
     def update_place(self, place_id, update_data):
         return self.place_repo.update(place_id, update_data)
+    
+    def delete_place(self, place_id):
+        """Deletes a place by ID"""
+        return self.place_repo.delete(place_id)
 
     # REVIEW METHODS
 
-    def create_review(self, place_id, review_data):
+    def create_review(self, review_data):
+        """
+        Creates a review.
+        Expects review_data to contain 'place_id' and 'user_id'.
+        """
         user_id = review_data.get('user_id')
+        place_id = review_data.get('place_id')
+
         if not self.user_repo.get(user_id):
             raise ValueError("User not found")
             
         if not self.place_repo.get(place_id):
             raise ValueError("Place not found")
 
-
+        # Check if user already reviewed this place
         all_reviews = self.review_repo.get_all()
         for r in all_reviews:
-            # Handle both Object access (SQL) and Dict access
             r_uid = r.user_id if hasattr(r, 'user_id') else r.get('user_id')
             r_pid = r.place_id if hasattr(r, 'place_id') else r.get('place_id')
             
-            if r_uid == user_id and r_pid == place_id:
+            if str(r_uid) == str(user_id) and str(r_pid) == str(place_id):
                 raise ValueError("User has already reviewed this place")
 
-        review_data['place_id'] = place_id
         new_review = Review(**review_data)
         self.review_repo.add(new_review)
         return new_review

@@ -3,6 +3,7 @@ import sys
 import os
 import re
 from flask_restx import Namespace, Resource, fields, reqparse, abort
+from flask_jwt_extended import jwt_required, get_jwt, get_jwt_identity
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 sys.path.insert(0, project_root)
@@ -22,11 +23,13 @@ user_base_model = api.model('UserBase', {
 })
 
 user_create_model = api.inherit('UserCreate', user_base_model, {
-    'password': fields.String(required=True, description='Password for the user account')
+    'password': fields.String(required=True, description='Password for the user account'),
+    'is_admin': fields.Boolean(description='Admin status', default=False)
 })
 
 user_details_model = api.inherit('UserResponse', user_base_model, {
-    'id': fields.String(readonly=True, description='The user unique identifier')
+    'id': fields.String(readonly=True, description='The user unique identifier'),
+    'is_admin': fields.Boolean(readonly=True, description='Admin status')
 })
 
 
@@ -35,8 +38,9 @@ parser.add_argument('first_name', type=str, help='Filter users by first name')
 
 @api.route('/')
 class UserList(Resource):
-    @api.doc('list_users')
+    @api.doc('list_users', security='Bearer Auth')
     @api.marshal_list_with(user_details_model)
+    @jwt_required()
     def get(self):
         """List all users"""
         args = parser.parse_args()
@@ -50,14 +54,21 @@ class UserList(Resource):
         else:
             return facade.get_all_users()
 
-    @api.doc('create_user')
+    @api.doc('create_user', security='Bearer Auth')
     @api.expect(user_create_model)
     @api.marshal_with(user_details_model, code=201)
     @api.response(201, 'User successfully created')
+    @api.response(403, 'Admin privileges required')
     @api.response(409, 'Email already registered')
     @api.response(400, 'Invalid input data')
+    @jwt_required()
     def post(self):
-        """Register a new user"""
+        """Register a new user(Admin only)"""
+
+        claims = get_jwt()
+        if not claims.get('is_admin'):
+            api.abort(403, "Admin privileges required to create users manually.")
+
         user_data = api.payload
 
         email = user_data.get('email')
@@ -90,10 +101,11 @@ class UserList(Resource):
 @api.route('/<user_id>')
 @api.param('user_id', 'The user identifier')
 class UserResource(Resource):
-    @api.doc('get_user_details')
+    @api.doc('get_user_details', security='Bearer Auth')
     @api.marshal_with(user_details_model)
     @api.response(200, 'User details retrieved successfully')
     @api.response(404, 'User not found')
+    @jwt_required()
     def get(self, user_id):
         """
         Get user details by ID
@@ -106,16 +118,32 @@ class UserResource(Resource):
             api.abort(404, f"User with ID '{user_id}' not found")
         return user
 
-    @api.doc('update_user')
+    @api.doc('update_user', security='Bearer Auth')
     @api.expect(user_base_model)
     @api.marshal_with(user_details_model)
+    @api.response(403, 'Unauthorized action')
     @api.response(404, 'User not found')
     @api.response(400, 'Invalid input data')
+    @jwt_required()
     def put(self, user_id):
         """
-        update a user details
+        update a user details (Owner or Admin)
         """
+        if not UUID_REGEX.match(user_id):
+            api.abort(400, "Invalid user ID format. Must be a UUID.")
+
+        current_user_id = get_jwt_identity()
+        claims = get_jwt()
+        is_admin = claims.get('is_admin', False)
+
+        if current_user_id != user_id and not is_admin:
+            api.abort(403, "Unauthorized action")
+
         user_data = api.payload
+
+        existing_user = facade.get_user(user_id)
+        if not existing_user:
+            api.abort(404, f"User {user_id} not found")
 
         email = user_data.get('email')
         first_name = user_data.get('first_name')
@@ -131,6 +159,10 @@ class UserResource(Resource):
         
         if not last_name or not isinstance(last_name, str) or len(last_name.strip()) == 0:
             api.abort(400, "Invalid or missing 'last_name'. Must be a non-empty string")
+
+        user_with_email = facade.get_user_by_email(email)
+        if user_with_email and user_with_email.id != user_id:
+            api.abort(400, f"Email '{email}' is already in use by another account.")
 
         updated_user_dict = facade.update_user(user_id, user_data)
 
