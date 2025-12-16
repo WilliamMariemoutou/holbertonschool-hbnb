@@ -8,24 +8,22 @@
 </head>
 <body>
 
-<header>
-    <nav class="navbar">
-        <div class="brand">
-            <img src="logo.png" alt="HbNB Logo" class="logo">
-            <span>hbnb</span>
-        </div>
-    </nav>
+<header class="header">
+    <div class="header-left">
+        <img src="logo.png" alt="HbNB logo" class="logo">
+        <span class="brand-name">hbnb</span>
+    </div>
 </header>
 
-<main>
-    <h1 class="page-title">Reviewing: Beautiful Beach House</h1>
+<main class="container">
+    <h1>Reviewing: Beautiful Beach House</h1>
 
-    <form class="form add-review">
+    <form class="review-form">
         <label for="review">Your Review:</label>
-        <textarea id="review" name="review" required></textarea>
+        <textarea id="review" required></textarea>
 
         <label for="rating">Rating:</label>
-        <select id="rating" name="rating" required>
+        <select id="rating" required>
             <option>1 Star</option>
             <option>2 Stars</option>
             <option>3 Stars</option>
@@ -37,7 +35,7 @@
     </form>
 </main>
 
-<footer>
+<footer class="footer">
     <p>© 2024 HbNB Evolution. All rights reserved.</p>
 </footer>
 

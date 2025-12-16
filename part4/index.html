@@ -8,18 +8,16 @@
 </head>
 <body>
 
-<header>
-    <nav class="navbar">
-        <div class="brand">
-            <img src="logo.png" alt="HbNB Logo" class="logo">
-            <span>hbnb</span>
-        </div>
-        <a href="login.html" class="login-button">Login</a>
-    </nav>
+<header class="header">
+    <div class="header-left">
+        <img src="logo.png" alt="HbNB logo" class="logo">
+        <span class="brand-name">hbnb</span>
+    </div>
+    <a href="login.html" class="login-link">Login</a>
 </header>
 
-<main>
-    <h1 class="page-title">Available Places</h1>
+<main class="container">
+    <h1>Available Places</h1>
 
     <div class="filter">
         <label for="price-filter">Max Price:</label>
@@ -31,7 +29,7 @@
         </select>
     </div>
 
-    <section class="places-container">
+    <section class="cards">
         <article class="place-card">
             <h2>Beautiful Beach House</h2>
             <p>Price per night: $150</p>
@@ -52,7 +50,7 @@
     </section>
 </main>
 
-<footer>
+<footer class="footer">
     <p>© 2024 HbNB Evolution. All rights reserved.</p>
 </footer>
 
