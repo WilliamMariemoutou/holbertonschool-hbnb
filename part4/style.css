@@ -1,188 +1,82 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* =========================
+   ADDITIONAL STYLES
+   These styles complete the design
+   ========================= */
+
+/* Logo */
+.logo {
+    height: 40px;
 }
 
-/* BASE */
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f3f3f3;
-    color: #111;
-}
-
-/* ================= HEADER / NAV ================= */
+/* Header / Navigation */
 header {
     background-color: #ff9800;
-    height: 70px;
-    padding: 0 30px;
+}
+
+nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.logo {
-    height: 40px;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.brand-name {
-    font-size: 22px;
+/* Login button */
+.login-button {
+    color: white;
+    text-decoration: none;
     font-weight: bold;
 }
 
-.login-link {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-/* ================= MAIN ================= */
-main {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
+/* Page titles */
 h1 {
     text-align: center;
-    font-size: 32px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-/* ================= FILTER ================= */
-.filter {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.filter select {
-    padding: 6px 12px;
-    font-size: 14px;
-}
-
-/* ================= PLACE CARDS ================= */
-.cards {
+/* Places container */
+.places-container {
     display: flex;
+    gap: 20px;
     justify-content: center;
-    gap: 30px;
     flex-wrap: wrap;
 }
 
-.place-card {
-    background-color: white;
-    width: 300px;
-    padding: 25px;
-    border-radius: 12px;
+/* Place & review cards */
+.place-card,
+.review-card {
+    background-color: #fff;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 280px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.place-card h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.place-card p {
-    margin-bottom: 15px;
-    font-size: 15px;
-}
-
-/* BUTTON */
+/* Buttons */
 .details-button {
     display: inline-block;
-    padding: 10px 20px;
+    margin-top: 10px;
+    padding: 10px 15px;
     background-color: #ff9800;
-    color: white;
+    color: #fff;
     text-decoration: none;
-    border-radius: 6px;
-    font-size: 14px;
+    border-radius: 5px;
 }
 
-/* ================= PLACE DETAILS ================= */
-.place-details {
-    background-color: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-.place-details p {
-    margin: 10px 0;
-    font-size: 16px;
-}
-
-/* ================= REVIEWS ================= */
-.reviews-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.review-card {
-    background-color: white;
+/* Forms */
+.form {
+    background-color: #fff;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    margin-bottom: 20px;
-}
-
-.review-card p {
-    margin: 8px 0;
-}
-
-/* ================= FORMS ================= */
-.login-form,
-.review-form {
-    background-color: white;
-    padding: 30px;
-    max-width: 600px;
+    max-width: 500px;
     margin: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 10px;
 }
 
-.login-form label,
-.review-form label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-.login-form input,
-.review-form textarea,
-.review-form select {
-    width: 100%;
-    margin-top: 5px;
-    padding: 10px;
-    font-size: 14px;
-}
-
-/* SUBMIT BUTTON */
-.submit-button {
-    margin-top: 25px;
-    width: 100%;
-    padding: 12px;
-    background-color: #ff9800;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-/* ================= FOOTER ================= */
+/* Footer */
 footer {
     background-color: #ff9800;
-    color: white;
+    color: #fff;
     text-align: center;
     padding: 15px;
-    margin-top: 60px;
+    margin-top: 40px;
 }

@@ -8,42 +8,53 @@
 </head>
 <body>
 
-<header class="header">
-    <div class="header-left">
+<header>
+    <nav>
         <img src="logo.png" alt="HbNB logo" class="logo">
-        <span class="brand-name">hbnb</span>
-    </div>
-    <a href="login.html" class="login-link">Login</a>
+        <a href="login.html" class="login-button">Login</a>
+    </nav>
 </header>
 
-<main class="container">
-    <h1>Beautiful Beach House</h1>
+<main>
+    <!-- Place details -->
+    <section id="place-details" class="place-details">
+        <h1>Beautiful Beach House</h1>
 
-    <section class="place-details">
-        <p><strong>Host:</strong> John Doe</p>
-        <p><strong>Price per night:</strong> $150</p>
-        <p><strong>Description:</strong> A beautiful beach house with amazing views...</p>
-        <p><strong>Amenities:</strong> WiFi, Pool, Air Conditioning</p>
+        <div class="place-info">
+            <p><strong>Host:</strong> John Doe</p>
+            <p><strong>Price per night:</strong> $150</p>
+            <p><strong>Description:</strong> A beautiful beach house with amazing views.</p>
+            <p><strong>Amenities:</strong> WiFi, Pool, Air Conditioning</p>
+        </div>
     </section>
 
-    <h2 class="reviews-title">Reviews</h2>
+    <!-- Reviews -->
+    <section id="reviews">
+        <h2>Reviews</h2>
 
-    <article class="review-card">
-        <p><strong>Jane Smith:</strong></p>
-        <p>Great place to stay!</p>
-        <p>Rating: ★★★★☆</p>
-    </article>
+        <article class="review-card">
+            <p><strong>Jane Smith:</strong></p>
+            <p>Great place to stay!</p>
+            <p>Rating: ★★★★☆</p>
+        </article>
 
-    <article class="review-card">
-        <p><strong>Robert Brown:</strong></p>
-        <p>Amazing location and very comfortable.</p>
-        <p>Rating: ★★★★★</p>
-    </article>
+        <article class="review-card">
+            <p><strong>Robert Brown:</strong></p>
+            <p>Amazing location and very comfortable.</p>
+            <p>Rating: ★★★★★</p>
+        </article>
+    </section>
+
+    <!-- Add review button -->
+    <section class="add-review">
+        <a href="add_review.html" class="details-button">Add Review</a>
+    </section>
 </main>
 
-<footer class="footer">
+<footer>
     <p>© 2024 HbNB Evolution. All rights reserved.</p>
 </footer>
 
+<script src="scripts.js"></script>
 </body>
 </html>
