@@ -9,38 +9,37 @@
 <body>
 
 <header>
-    <nav>
-        <img src="logo.png" alt="App Logo" class="logo">
+    <nav class="navbar">
+        <div class="brand">
+            <img src="logo.png" alt="HbNB Logo" class="logo">
+            <span>hbnb</span>
+        </div>
     </nav>
 </header>
 
 <main>
-    <!-- Add something to idfentify the place you're reviewing -->
-    <form id="review-form" class="form add-review">
-        <h2>Add a Review</h2>
+    <h1 class="page-title">Reviewing: Beautiful Beach House</h1>
 
+    <form class="form add-review">
         <label for="review">Your Review:</label>
         <textarea id="review" name="review" required></textarea>
 
         <label for="rating">Rating:</label>
         <select id="rating" name="rating" required>
-            <!-- Options for rating -->
-            <option value="">Select rating</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
+            <option>1 Star</option>
+            <option>2 Stars</option>
+            <option>3 Stars</option>
+            <option>4 Stars</option>
+            <option>5 Stars</option>
         </select>
 
-        <button type="submit">Submit Review</button>
+        <button type="submit" class="submit-button">Submit Review</button>
     </form>
 </main>
 
 <footer>
-    <p>All rights reserved</p>
+    <p>© 2024 HbNB Evolution. All rights reserved.</p>
 </footer>
 
-<script src="scripts.js"></script>
 </body>
 </html>
