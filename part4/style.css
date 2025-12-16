@@ -1,22 +1,29 @@
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
+/* BASE */
 body {
-    background-color: #f2f2f2;
-    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3f3f3;
+    color: #111;
 }
 
-/* HEADER */
-.header {
+/* ================= HEADER / NAV ================= */
+header {
     background-color: #ff9800;
-    padding: 15px 30px;
+    height: 70px;
+    padding: 0 30px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 40px;
 }
 
 .header-left {
@@ -25,38 +32,42 @@ body {
     gap: 10px;
 }
 
-.logo {
-    height: 40px;
-}
-
 .brand-name {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
 }
 
 .login-link {
     color: white;
     text-decoration: none;
+    font-size: 16px;
 }
 
-/* MAIN */
-.container {
-    padding: 40px 20px;
+/* ================= MAIN ================= */
+main {
     max-width: 1200px;
-    margin: auto;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 32px;
+    margin-bottom: 25px;
 }
 
+/* ================= FILTER ================= */
 .filter {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
-/* CARDS */
+.filter select {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/* ================= PLACE CARDS ================= */
 .cards {
     display: flex;
     justify-content: center;
@@ -67,90 +78,111 @@ h1 {
 .place-card {
     background-color: white;
     width: 300px;
-    padding: 20px;
+    padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .place-card h2 {
+    font-size: 20px;
     margin-bottom: 10px;
 }
 
+.place-card p {
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+/* BUTTON */
 .details-button {
     display: inline-block;
-    margin-top: 15px;
     padding: 10px 20px;
     background-color: #ff9800;
     color: white;
-    border-radius: 6px;
     text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
-/* PLACE DETAILS */
+/* ================= PLACE DETAILS ================= */
 .place-details {
     background-color: white;
-    padding: 25px;
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    max-width: 800px;
-    margin: 0 auto 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
     text-align: center;
 }
 
+.place-details p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/* ================= REVIEWS ================= */
 .reviews-title {
-    margin: 30px 0 15px;
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 
 .review-card {
     background-color: white;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     margin-bottom: 20px;
 }
 
-/* FORMS */
-.review-form,
-.login-form {
+.review-card p {
+    margin: 8px 0;
+}
+
+/* ================= FORMS ================= */
+.login-form,
+.review-form {
     background-color: white;
     padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     max-width: 600px;
     margin: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.review-form label,
-.login-form label {
+.login-form label,
+.review-form label {
     display: block;
     margin-top: 15px;
+    font-weight: bold;
 }
 
+.login-form input,
 .review-form textarea,
-.review-form select,
-.login-form input {
+.review-form select {
     width: 100%;
     margin-top: 5px;
     padding: 10px;
+    font-size: 14px;
 }
 
+/* SUBMIT BUTTON */
 .submit-button {
-    margin-top: 20px;
+    margin-top: 25px;
     width: 100%;
     padding: 12px;
     background-color: #ff9800;
     color: white;
     border: none;
     border-radius: 6px;
+    font-size: 15px;
     cursor: pointer;
 }
 
-/* FOOTER */
-.footer {
+/* ================= FOOTER ================= */
+footer {
     background-color: #ff9800;
     color: white;
     text-align: center;
     padding: 15px;
-    margin-top: 50px;
+    margin-top: 60px;
 }
