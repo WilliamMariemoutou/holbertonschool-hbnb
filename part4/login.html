@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header>
-    <nav>
-        <img src="logo.png" alt="HbNB logo" class="logo">
-    </nav>
-</header>
+    <header>
+        <nav>
+            <img src="logo.png" alt="HbNB logo" class="logo">
+        </nav>
+    </header>
 
-<main>
-    <form id="login-form" class="form">
-        <h2>Login</h2>
+    <main>
+        <form id="login-form" class="form">
+            <h2>Login</h2>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
 
-        <button type="submit" class="details-button">Login</button>
-    </form>
-</main>
+            <!-- Error message container -->
+            <p id="login-error" style="color: red; text-align: center;"></p>
+            <button type="submit" class="details-button">Login</button>
+        </form>
+    </main>
 
-<footer>
-    <p>© 2024 HbNB Evolution. All rights reserved.</p>
-</footer>
+    <footer>
+        <p>© 2024 HbNB Evolution. All rights reserved.</p>
+    </footer>
 
-<script src="scripts.js"></script>
+    <script src="scripts.js"></script>
 </body>
+
 </html>
