@@ -1,33 +1,123 @@
-.place-card,
-.review-card {
-    margin: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #fff;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* HEADER */
+header {
+    background-color: #ff9800;
+    padding: 1rem 2rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .logo {
     height: 40px;
 }
 
-.login-button,
-.details-button {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 8px 12px;
+.login-button {
+    color: white;
     text-decoration: none;
-    border-radius: 5px;
 }
 
+/* MAIN */
+main {
+    padding: 2rem;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.filter {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* PLACES */
+.places-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.place-card,
+.review-card,
+.place-details {
+    background-color: white;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.details-button {
+    display: inline-block;
+    margin-top: 1rem;
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* REVIEW FORM */
 .form {
-    max-width: 400px;
+    max-width: 600px;
     margin: auto;
 }
 
+.form label {
+    display: block;
+    margin-top: 1rem;
+}
+
+.form textarea,
+.form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 0.5rem;
+}
+
+.submit-button {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 12px;
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* FOOTER */
 footer {
+    background-color: #ff9800;
+    color: white;
     text-align: center;
     padding: 1rem;
-    background-color: #333;
-    color: #fff;
+    margin-top: 3rem;
 }
