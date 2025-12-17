@@ -1,7 +1,3 @@
-/* =========================
-   ADDITIONAL STYLES
-   ========================= */
-
 /* Logo */
 .logo {
     height: 40px;
@@ -16,6 +12,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 20px;
 }
 
 /* Login button */
@@ -31,36 +28,55 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Places container */
-.places-container {
+/* Container for place details page */
+.place-details-container {
     display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: center; /* Center the card horizontally */
+    margin: 40px 20px;
 }
 
-/* Place & review cards */
-.place-card,
-.review-card {
+/* Place card */
+.place-card {
     background-color: #fff;
-    margin: 20px;
-    padding: 15px;
+    padding: 25px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    width: 280px;
+    max-width: 600px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content inside card */
     text-align: center;
 }
 
-/* Description inside card */
-.description {
-    margin: 10px 0;
+/* Place info */
+.place-info p {
+    margin: 8px 0;
+}
+
+/* Reviews section */
+.reviews-section {
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-card {
+    width: 90%;
+    background-color: #f8f8f8;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    text-align: center;
 }
 
 /* Buttons */
-.details-button,
-.add-review-button {
+.details-button {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
     padding: 10px 15px;
     background-color: #ff9800;
     color: #fff;
@@ -70,30 +86,9 @@ h1 {
     cursor: pointer;
 }
 
-/* Add Review button spacing */
+/* Specific Add Review button spacing */
 .add-review-button {
     margin-top: 15px;
-}
-
-/* Review section */
-.reviews-section {
-    margin-top: 15px;
-}
-
-.review-card {
-    margin: 10px 0;
-    padding: 8px;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-}
-
-/* Forms */
-.form {
-    background-color: #fff;
-    padding: 20px;
-    max-width: 500px;
-    margin: auto;
-    border-radius: 10px;
 }
 
 /* Footer */
@@ -105,25 +100,11 @@ footer {
     margin-top: 40px;
 }
 
-/* =========================
-   PRICE FILTER STYLES
-   ========================= */
-
-#filter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 40px;
-}
-
-#filter label {
-    font-weight: bold;
-}
-
-#price-filter {
-    padding: 6px 12px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
+/* Forms */
+.form {
+    background-color: #fff;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 10px;
 }
