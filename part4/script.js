@@ -359,3 +359,35 @@ async function submitReview(token, placeId, reviewText, rating) {
         })
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const priceFilter = document.getElementById('price-filter');
+    const placeCards = document.querySelectorAll('.place-card');
+
+    // Prices available in your HTML
+    const prices = [100, 150, 200];
+
+    // Populate dropdown
+    prices.forEach(price => {
+        const option = document.createElement('option');
+        option.value = price;
+        option.textContent = `$${price}`;
+        priceFilter.appendChild(option);
+    });
+
+    // Filter logic
+    priceFilter.addEventListener('change', () => {
+        const selectedPrice = priceFilter.value;
+
+        placeCards.forEach(card => {
+            const priceText = card.querySelector('p').textContent;
+            const placePrice = parseInt(priceText.replace(/\D/g, ''));
+
+            if (selectedPrice === 'All' || placePrice <= selectedPrice) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
