@@ -11,10 +11,7 @@
     <!-- HEADER -->
     <header>
         <nav>
-            <!-- Application logo -->
             <img src="logo.png" alt="HbNB logo" class="logo">
-
-            <!-- Login link -->
             <a href="login.html" id="login-link" class="login-button">Login</a>
         </nav>
     </header>
@@ -23,38 +20,17 @@
     <main>
         <h1>Available Places</h1>
 
-        <!-- Price filter (CENTERED) -->
+        <!-- Price filter -->
         <section id="filter" class="filter-container">
             <label for="price-filter">Max Price:</label>
             <select id="price-filter">
                 <option value="all">All</option>
-                <option value="10">10</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
             </select>
         </section>
 
         <!-- Places list -->
         <section id="places-list" class="places-container">
-
-            <article class="place-card">
-                <h2>Beautiful Beach House</h2>
-                <p>Price per night: $10</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </article>
-
-            <article class="place-card">
-                <h2>Cozy Cabin</h2>
-                <p>Price per night: $50</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </article>
-
-            <article class="place-card">
-                <h2>Modern Apartment</h2>
-                <p>Price per night: $100</p>
-                <a href="place.html" class="details-button">View Details</a>
-            </article>
-
+            <!-- JS will populate place cards dynamically -->
         </section>
     </main>
 
