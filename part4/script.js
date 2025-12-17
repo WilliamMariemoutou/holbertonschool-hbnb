@@ -299,3 +299,63 @@ function displayPlaceDetails(place) {
         });
     }
 }
+
+/* =========================
+   ADD REVIEW PAGE LOGIC
+   ========================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const reviewForm = document.getElementById('review-form');
+
+    /* Run only on add_review.html */
+    if (!reviewForm) return;
+
+    /* Check authentication */
+    const token = getCookie('token');
+    if (!token) {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    /* Get place ID from URL */
+    const placeId = getPlaceIdFromURL();
+
+    reviewForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const reviewText = document.getElementById('review').value;
+        const rating = document.getElementById('rating')?.value;
+
+        try {
+            const response = await submitReview(token, placeId, reviewText, rating);
+
+            if (response.ok) {
+                alert('Review submitted successfully!');
+                reviewForm.reset();
+            } else {
+                alert('Failed to submit review');
+            }
+
+        } catch (error) {
+            alert('Error submitting review');
+        }
+    });
+});
+
+/*
+  Sends review data to API
+*/
+async function submitReview(token, placeId, reviewText, rating) {
+    return fetch('https://your-api-url/reviews', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            place_id: placeId,
+            review: reviewText,
+            rating: rating
+        })
+    });
+}
