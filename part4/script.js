@@ -186,9 +186,11 @@ function setupPriceFilter(places) {
     priceFilter.addEventListener('change', () => {
         const selectedPrice = priceFilter.value;
         const cards = document.querySelectorAll('.place-card');
+        
+        console.log(cards)
         cards.forEach(card => {
             const cardPrice = Number(card.dataset.price);
-            card.style.display = (selectedPrice === 'all' || cardPrice === Number(selectedPrice)) ? 'block' : 'none';
+            card.style.display = (selectedPrice === 'all' || cardPrice <= Number(selectedPrice)) ? 'block' : 'none';
         });
     });
 }
