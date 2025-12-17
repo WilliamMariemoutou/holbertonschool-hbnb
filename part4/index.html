@@ -8,88 +8,55 @@
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <!-- Application logo -->
-            <img src="logo.png" alt="HbNB logo" class="logo">
+<header>
+    <nav>
+        <img src="logo.png" alt="HbNB logo" class="logo">
+        <a href="login.html" id="login-link" class="login-button">Login</a>
+    </nav>
+</header>
 
-            <!-- Login link -->
-            <a href="login.html" id="login-link" class="login-button">Login</a>
-        </nav>
-    </header>
+<main>
+    <h1>Available Places</h1>
 
-    <!-- MAIN CONTENT -->
-    <main>
-        <h1>Available Places</h1>
+    <!-- Price filter -->
+    <section id="filter" class="filter-container">
+        <label for="price-filter">Max Price:</label>
+        <select id="price-filter">
+            <option value="all">All</option>
+            <option value="10">10</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </section>
 
-        <!-- Price filter (CENTERED) -->
-        <section id="filter" class="filter-container">
-            <label for="price-filter">Max Price:</label>
-            <select id="price-filter">
-                <option value="all">All</option>
-                <option value="10">10</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-        </section>
+    <!-- Places list -->
+    <section id="places-list" class="places-container">
 
-        <!-- Places list -->
-        <section id="places-list" class="places-container">
+        <article class="place-card">
+            <h2>Beautiful Beach House</h2>
+            <p>Price per night: $10</p>
+            <a href="place.html" class="details-button">View Details</a>
+        </article>
 
-            <article class="place-card">
-                <h2>Beautiful Beach House</h2>
-                <p class="description">A lovely beach house with ocean view and all amenities included.</p>
-                <p>Price per night: $10</p>
-                <a href="place.html" class="details-button">View Details</a>
-                <section class="reviews-section">
-                    <h3>Reviews</h3>
-                    <div class="review-card">
-                        <p>Great place, loved it!</p>
-                        <p>- Alice</p>
-                    </div>
-                    <button class="add-review-button">Add Review</button>
-                </section>
-            </article>
+        <article class="place-card">
+            <h2>Cozy Cabin</h2>
+            <p>Price per night: $50</p>
+            <a href="place.html" class="details-button">View Details</a>
+        </article>
 
-            <article class="place-card">
-                <h2>Cozy Cabin</h2>
-                <p class="description">A warm and cozy cabin in the mountains, perfect for a getaway.</p>
-                <p>Price per night: $50</p>
-                <a href="place.html" class="details-button">View Details</a>
-                <section class="reviews-section">
-                    <h3>Reviews</h3>
-                    <div class="review-card">
-                        <p>Very relaxing stay.</p>
-                        <p>- Bob</p>
-                    </div>
-                    <button class="add-review-button">Add Review</button>
-                </section>
-            </article>
+        <article class="place-card">
+            <h2>Modern Apartment</h2>
+            <p>Price per night: $100</p>
+            <a href="place.html" class="details-button">View Details</a>
+        </article>
 
-            <article class="place-card">
-                <h2>Modern Apartment</h2>
-                <p class="description">A stylish modern apartment in the city center, close to all attractions.</p>
-                <p>Price per night: $100</p>
-                <a href="place.html" class="details-button">View Details</a>
-                <section class="reviews-section">
-                    <h3>Reviews</h3>
-                    <div class="review-card">
-                        <p>Perfect location and very clean.</p>
-                        <p>- Carol</p>
-                    </div>
-                    <button class="add-review-button">Add Review</button>
-                </section>
-            </article>
+    </section>
+</main>
 
-        </section>
-    </main>
+<footer>
+    <p>© 2024 HbNB Evolution. All rights reserved.</p>
+</footer>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>© 2024 HbNB Evolution. All rights reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

@@ -28,67 +28,54 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Container for place details page */
-.place-details-container {
+/* Price filter */
+#filter {
     display: flex;
-    justify-content: center; /* Center the card horizontally */
-    margin: 40px 20px;
+    justify-content: center; /* Center filter on page */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
 }
 
-/* Place card */
+#filter label {
+    font-weight: bold;
+}
+
+#price-filter {
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* Places container */
+.places-container {
+    display: flex;
+    justify-content: center; /* Center all cards horizontally */
+    gap: 20px;
+    flex-wrap: wrap; /* Wrap cards to next line if needed */
+}
+
+/* Place cards */
 .place-card {
     background-color: #fff;
-    padding: 25px;
+    margin: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    max-width: 600px;
-    width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content inside card */
-    text-align: center;
-}
-
-/* Place info */
-.place-info p {
-    margin: 8px 0;
-}
-
-/* Reviews section */
-.reviews-section {
-    margin-top: 25px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.review-card {
-    width: 90%;
-    background-color: #f8f8f8;
-    padding: 10px;
-    margin: 8px 0;
-    border-radius: 8px;
-    text-align: center;
+    width: 280px;
+    text-align: center; /* Center text inside cards */
 }
 
 /* Buttons */
 .details-button {
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 10px;
     padding: 10px 15px;
     background-color: #ff9800;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Specific Add Review button spacing */
-.add-review-button {
-    margin-top: 15px;
 }
 
 /* Footer */
@@ -107,4 +94,49 @@ footer {
     max-width: 500px;
     margin: auto;
     border-radius: 10px;
+}
+
+/* =========================
+   PLACE.DETAILS PAGE SPECIFIC
+   ========================= */
+
+.place-details-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 20px;
+}
+
+.place-details-container .place-card {
+    max-width: 600px;
+    width: 100%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.place-details-container .place-info p {
+    margin: 8px 0;
+}
+
+.place-details-container .reviews-section {
+    margin-top: 25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.place-details-container .review-card {
+    width: 90%;
+    background-color: #f8f8f8;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.place-details-container .add-review-button {
+    margin-top: 15px;
 }
