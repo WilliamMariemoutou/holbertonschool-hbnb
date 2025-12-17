@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
        LOGIN FUNCTIONALITY
        ============================== */
     const loginForm = document.getElementById('login-form');
-
     if (loginForm) {
         loginForm.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==============================
-       AUTHENTICATION & FETCH PLACES
+       AUTHENTICATION & PLACE DISPLAY
        ============================== */
     checkAuthentication();
 
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const placeId = getPlaceIdFromURL();
         const token = getCookie('token');
         const addReviewSection = document.getElementById('add-review');
-
         if (!token && addReviewSection) addReviewSection.style.display = 'none';
         if (placeId) fetchPlaceDetails(token, placeId);
     }
@@ -115,23 +113,37 @@ function checkAuthentication() {
     const token = getCookie('token');
     const loginLink = document.getElementById('login-link');
     if (loginLink) loginLink.style.display = token ? 'none' : 'block';
-    if (token) fetchPlaces(token);
+    fetchPlaces(token);
 }
 
 async function fetchPlaces(token) {
-    try {
-        const response = await fetch('https://your-api-url/places', {
-            method: 'GET',
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
+    let places = [];
 
-        if (!response.ok) throw new Error('Failed to fetch places');
-        const places = await response.json();
-        displayPlaces(places);
-        setupPriceFilter(places);
+    try {
+        if (token) {
+            const response = await fetch('https://your-api-url/places', {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                places = await response.json();
+            }
+        }
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching API data, using fallback data", error);
     }
+
+    // Fallback data if API fails or during development
+    if (places.length === 0) {
+        places = [
+            { id: 1, name: "Beautiful Beach House", price: 10, description: "A lovely beach stay.", amenities: ["Wi-Fi", "Pool"] },
+            { id: 2, name: "Cozy Cabin", price: 50, description: "A warm cabin in the woods.", amenities: ["Fireplace", "Kitchen"] },
+            { id: 3, name: "Modern Apartment", price: 100, description: "Luxury city apartment.", amenities: ["Wi-Fi", "Gym"] }
+        ];
+    }
+
+    displayPlaces(places);
+    setupPriceFilter(places);
 }
 
 function displayPlaces(places) {
@@ -147,6 +159,8 @@ function displayPlaces(places) {
         card.innerHTML = `
             <h2>${place.name}</h2>
             <p>Price per night: $${place.price}</p>
+            <p>${place.description}</p>
+            <p><strong>Amenities:</strong> ${place.amenities.join(', ')}</p>
             <a href="place.html?id=${place.id}" class="details-button">View Details</a>
         `;
         placesList.appendChild(card);
@@ -160,9 +174,7 @@ function setupPriceFilter(places) {
     const priceFilter = document.getElementById('price-filter');
     if (!priceFilter) return;
 
-    // Generate unique price options
     const prices = [...new Set(places.map(p => p.price))].sort((a, b) => a - b);
-
     priceFilter.innerHTML = `<option value="all">All</option>`;
     prices.forEach(price => {
         const option = document.createElement('option');
@@ -173,15 +185,10 @@ function setupPriceFilter(places) {
 
     priceFilter.addEventListener('change', () => {
         const selectedPrice = priceFilter.value;
-        const placeCards = document.querySelectorAll('.place-card');
-
-        placeCards.forEach(card => {
+        const cards = document.querySelectorAll('.place-card');
+        cards.forEach(card => {
             const cardPrice = Number(card.dataset.price);
-            if (selectedPrice === 'all' || cardPrice === Number(selectedPrice)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
+            card.style.display = (selectedPrice === 'all' || cardPrice === Number(selectedPrice)) ? 'block' : 'none';
         });
     });
 }
@@ -195,7 +202,6 @@ async function fetchPlaceDetails(token, placeId) {
             method: 'GET',
             headers: token ? { 'Authorization': `Bearer ${token}` } : {}
         });
-
         if (!response.ok) throw new Error('Failed to fetch place details');
         const place = await response.json();
         displayPlaceDetails(place);
@@ -245,10 +251,6 @@ async function submitReview(token, placeId, reviewText, rating) {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-            place_id: placeId,
-            review: reviewText,
-            rating: rating
-        })
+        body: JSON.stringify({ place_id: placeId, review: reviewText, rating })
     });
 }
