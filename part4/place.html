@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place Details</title>
-
-    <!-- Main stylesheet shared across the application -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,11 +13,8 @@
      ========================= -->
 <header>
     <nav>
-        <!-- Application logo -->
         <img src="logo.png" alt="HbNB logo" class="logo">
-
-        <!-- Login link (hidden automatically when authenticated) -->
-        <a href="login.html" class="login-button">Login</a>
+        <a href="login.html" id="login-link" class="login-button">Login</a>
     </nav>
 </header>
 
@@ -29,21 +24,14 @@
 <main>
 
     <!--
-        Container that centers the place details card
-        This wrapper is ONLY used on place.html
+      ID REQUIRED for JavaScript place details logic
     -->
-    <section class="place-details-container">
+    <section id="place-details" class="place-details-container">
 
-        <!--
-            Main place card
-            All content inside this card is centered via CSS
-        -->
         <article class="place-card">
 
-            <!-- Place title -->
             <h1>Beautiful Beach House</h1>
 
-            <!-- Static place info (will be replaced dynamically if API is used) -->
             <div class="place-info">
                 <p><strong>Host:</strong> John Doe</p>
                 <p><strong>Price per night:</strong> $10</p>
@@ -52,12 +40,11 @@
             </div>
 
             <!-- =========================
-                 REVIEWS SECTION
+                 REVIEWS
                  ========================= -->
             <section class="reviews-section">
                 <h2>Reviews</h2>
 
-                <!-- Individual review card -->
                 <article class="review-card">
                     <p><strong>Jane Smith:</strong></p>
                     <p>Great place to stay!</p>
@@ -71,13 +58,13 @@
                 </article>
 
                 <!--
-                    Add Review button
-                    Navigation is handled by JavaScript:
-                    - Not logged in → login.html
-                    - Logged in → add_review.html?id=PLACE_ID
+                  Button type MUST be "button"
+                  Navigation handled by JS
                 -->
-                <button id="add-review-btn"
-                        class="details-button add-review-button">
+                <button
+                    type="button"
+                    id="add-review-btn"
+                    class="details-button add-review-button">
                     Add Review
                 </button>
             </section>
@@ -93,7 +80,6 @@
     <p>© 2024 HbNB Evolution. All rights reserved.</p>
 </footer>
 
-<!-- Main application script -->
 <script src="script.js"></script>
 </body>
 </html>

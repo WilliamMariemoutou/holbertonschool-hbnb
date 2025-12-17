@@ -39,11 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     const data = await response.json();
-
-                    // Store authentication token in cookies
                     document.cookie = `token=${data.access_token}; path=/`;
-
-                    // Redirect to main page after login
                     window.location.href = 'index.html';
                 } else {
                     displayLoginError('Invalid email or password');
@@ -55,14 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==================================================
-       AUTHENTICATION CHECK (GLOBAL)
+       GLOBAL AUTHENTICATION CHECK
        ================================================== */
 
-    /*
-      Checks if a token exists.
-      - Hides login link when authenticated
-      - Fetches places list
-    */
     checkAuthentication();
 
     /* ==================================================
@@ -71,8 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /*
       Runs ONLY on place.html
-      - Reads place ID from URL
-      - Fetches place details from API
+      - Fetches place details using ID from URL
     */
     const placeDetailsSection = document.getElementById('place-details');
 
@@ -91,8 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /*
       Controls Add Review button behavior:
-      - If NOT authenticated → redirect to login.html
-      - If authenticated → redirect to add_review.html?id=PLACE_ID
+      - Not logged in → login.html
+      - Logged in → add_review.html?id=PLACE_ID
     */
     const addReviewBtn = document.getElementById('add-review-btn');
 
@@ -110,12 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==================================================
-       ADD REVIEW FORM LOGIC
+       ADD REVIEW FORM PROTECTION & SUBMISSION
        ================================================== */
 
     /*
       Protects add_review.html:
-      - Redirects unauthenticated users to login page
+      - Redirects unauthenticated users
       - Submits review to API
     */
     const reviewForm = document.getElementById('review-form');
@@ -156,21 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
    HELPER FUNCTIONS
    ================================================== */
 
-/*
-  Displays login error messages
-*/
 function displayLoginError(message) {
     const errorElement = document.getElementById('login-error');
-    if (errorElement) {
-        errorElement.textContent = message;
-    } else {
-        alert(message);
-    }
+    if (errorElement) errorElement.textContent = message;
+    else alert(message);
 }
 
-/*
-  Retrieves a cookie value by name
-*/
 function getCookie(name) {
     const cookies = document.cookie.split(';');
     for (let cookie of cookies) {
@@ -180,9 +161,6 @@ function getCookie(name) {
     return null;
 }
 
-/*
-  Extracts place ID from URL query parameters
-*/
 function getPlaceIdFromURL() {
     const params = new URLSearchParams(window.location.search);
     return params.get('id');
