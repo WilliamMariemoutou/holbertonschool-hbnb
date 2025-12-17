@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const placeCards = document.querySelectorAll('.place-card');
 
     // Prices available in your HTML
-    const prices = [100, 150, 200];
+    const prices = [10, 50, 100];
 
     // Populate dropdown
     prices.forEach(price => {
