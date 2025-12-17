@@ -202,3 +202,100 @@ function filterPlacesByPrice(event) {
         }
     });
 }
+
+/* =========================
+   PLACE DETAILS PAGE LOGIC
+   ========================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const placeDetailsSection = document.getElementById('place-details');
+
+    /* Run only on place.html */
+    if (!placeDetailsSection) return;
+
+    const placeId = getPlaceIdFromURL();
+    const token = getCookie('token');
+    const addReviewSection = document.getElementById('add-review');
+
+    /* Show or hide add review form based on authentication */
+    if (!token && addReviewSection) {
+        addReviewSection.style.display = 'none';
+    }
+
+    if (placeId) {
+        fetchPlaceDetails(token, placeId);
+    }
+});
+
+/*
+  Extracts place ID from URL
+  Example: place.html?id=123
+*/
+function getPlaceIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
+
+/*
+  Fetch place details from API
+*/
+async function fetchPlaceDetails(token, placeId) {
+    try {
+        const response = await fetch(`https://your-api-url/places/${placeId}`, {
+            method: 'GET',
+            headers: token ? {
+                'Authorization': `Bearer ${token}`
+            } : {}
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch place details');
+        }
+
+        const place = await response.json();
+        displayPlaceDetails(place);
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+/*
+  Displays place details and reviews
+*/
+function displayPlaceDetails(place) {
+    const detailsSection = document.getElementById('place-details');
+    const reviewsSection = document.getElementById('reviews');
+
+    if (!detailsSection) return;
+
+    /* Place information */
+    detailsSection.innerHTML = `
+        <article class="place-details">
+            <h1>${place.name}</h1>
+            <div class="place-info">
+                <p><strong>Price:</strong> $${place.price} / night</p>
+                <p><strong>Description:</strong> ${place.description}</p>
+                <p><strong>Amenities:</strong> ${place.amenities?.join(', ') || 'None'}</p>
+            </div>
+        </article>
+    `;
+
+    /* Reviews */
+    if (reviewsSection && place.reviews) {
+        reviewsSection.innerHTML = '<h2>Reviews</h2>';
+
+        place.reviews.forEach(review => {
+            const reviewCard = document.createElement('article');
+            reviewCard.className = 'review-card';
+
+            reviewCard.innerHTML = `
+                <p>${review.comment}</p>
+                <p><strong>User:</strong> ${review.user}</p>
+                <p><strong>Rating:</strong> ${review.rating}/5</p>
+            `;
+
+            reviewsSection.appendChild(reviewCard);
+        });
+    }
+}
